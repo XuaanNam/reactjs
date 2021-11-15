@@ -3,10 +3,10 @@
 const Navbar = ({totalCouters}) => {
     return (
         <nav className="navbar navbar-light bg-light">
-            <a className="navbar-brand" href="#">
+            <a style={{userSelect:'none'}} className="navbar-brand" href="/">
                 Navbar{" "}
             
-                <span className="badge badge-secondary badge-pill">{totalCouters}</span>
+                <span style={{userSelect:'none'}} className="badge badge-secondary badge-pill">{totalCouters}</span>
             </a>
             
         </nav>

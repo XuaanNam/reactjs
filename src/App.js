@@ -3,12 +3,7 @@ import Counters from "./components/counters";
 import Navbar from "./components/navbar";
 class App extends Component {
     state = {
-        couters: [
-            {id: 1, value: 4, name: 'John'},
-            {id: 2, value: 0, name: 'cải'},
-            {id: 3, value: 0, name: 'bro?'},
-            {id: 4, value: 0, name: 'jesse'},
-        ],
+        couters: [],
     }
 
     handleIncrement = (couter) => {
@@ -19,6 +14,16 @@ class App extends Component {
         this.setState({couters});
 
     }
+    handleDecrement = (couter) => {
+        const couters = [...this.state.couters];
+        const index = couters.indexOf(couter);
+        couters[index] = {...couter};
+        if(couters[index].value === 0) return;
+        couters[index].value--;
+        this.setState({couters});
+
+    }
+
     handleDelete = (couterId) => {
         const couters = this.state.couters.filter(couter => couter.id !== couterId);
         this.setState({couters});
@@ -31,6 +36,18 @@ class App extends Component {
         })
         this.setState({couters})
     }
+    handleCreate = () => {
+        let id = 1;
+        const couters = [...this.state.couters];
+        const index = couters.length;
+        if(index !== 0){
+            id = couters[index - 1].id + 1;
+        }
+        couters.push({id: id, value: 0});
+        this.setState({couters});
+        console.log(this.state.couters)
+    }
+    
     render() {
         return (
             <React.Fragment>
@@ -41,6 +58,8 @@ class App extends Component {
                         onReset={this.handleReset}
                         onDelete={this.handleDelete}
                         onIncrement={this.handleIncrement}
+                        onDecrement={this.handleDecrement}
+                        onCreate={this.handleCreate}
                     />
                 </main>
             </React.Fragment>

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 class Couter extends Component {
     
 
-    // style = {
-    //     fontSize: 10,
-    //     fontWeight: 'bold',
-    // }
+    style = {
+        width: '3em',
+        margin: 'auto 0',
+    }
 
     // renderTags() {
     //     return (this.state.tags.length === 0) ? <p>There is no tags!</p> : this.state.tags.map(tag => <li key={tag}>{tag}</li>)
@@ -18,30 +18,33 @@ class Couter extends Component {
 
  
     render() {
-       
+        const {onDelete, onIncrement, onDecrement, couter} = this.props;
         return (
-            <React.Fragment>
-                <div>
-                    <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-                    <button onClick={() => {this.props.onIncrement(this.props.couter)}} className="btn btn-secondary btn-sm">
-                        Increment
-                    </button>
-                    <button onClick={ () => {this.props.onDelete(this.props.couter.id)} }
-                        className="btn btn-danger m-2 btn-sm">
-                            Delete
-                    </button>
-                    {/* <ul>
-                        {this.state.tags.length === 0 && <p>There is no tags!</p>}
-                        { this.renderTags()}
-                    </ul> */}
-                </div>
-            </React.Fragment>
+            <div className="d-flex">
+                <div  style={this.style}>
+                    <span style={{userSelect:'none'}} className={this.getBadgeClasses()}>{this.formatCount()}
+                    </span>                   
+                </div>               
+                <button style={{width: '2em'}} onClick={() => {onDecrement(couter)}} 
+                    className="btn btn-secondary mt-2 mb-2 mr-1  ml-2 btn-sm">
+                        -
+                </button>
+                <button style={{width: '2em'}} onClick={() => {onIncrement(couter)}} 
+                    className="btn btn-secondary mt-2 mb-2 mr-2 btn-sm">
+                        +
+                </button>
+                <button onClick={ () => {onDelete(couter.id)} }
+                    className="btn btn-danger m-2 btn-sm">
+                        Delete
+                </button>
+                   
+            </div>
         );
     }
 
     getBadgeClasses() {
-        let classes = "badge m-2 badge-";
-        classes += (this.props.couter.value === 0) ? "warning" : "primary";
+        let classes = "badge badge-";
+        classes += (this.props.couter.value === 0) ? "warning m-2" : "primary m-2 ml-4";
         return classes;
     }
 
